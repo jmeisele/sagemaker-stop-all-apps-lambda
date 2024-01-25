@@ -1,10 +1,10 @@
-PROJECT=AWS-PYTHON-LAMBDA-LAYER
+PROJECT=SAGEMAKER-STOP-ALL-APPS-LAMBDA
 VERSION=0.1.0
 PYTHON_VERSION=3.8.1
 SOURCE_OBJECTS=src tests
 
 setup:
-	pip3 install poetry==1.3.1
+	pip3 install poetry==1.5.1
 	poetry install --no-root
 
 format.black:
