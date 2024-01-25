@@ -13,7 +13,6 @@ data "aws_iam_policy_document" "lambda" {
   }
   statement {
     actions = [
-      "sagemaker:ListUserProfiles",
       "sagemaker:ListApps",
       "sagemaker:DeleteApp"
     ]
