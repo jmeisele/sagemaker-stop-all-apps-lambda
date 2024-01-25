@@ -13,11 +13,12 @@ data "aws_iam_policy_document" "lambda" {
   }
   statement {
     actions = [
-      "xray:PutTraceSegments",
-      "xray:PutTelemetryRecords",
+      "sagemaker:ListUserProfiles",
+      "sagemaker:ListApps",
+      "sagemaker:DeleteApp"
     ]
     resources = [
-      "arn:aws:xray:*:*:*"
+      "arn:aws:sagemaker:*:*:*"
     ]
   }
 }
