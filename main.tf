@@ -44,7 +44,6 @@ resource "aws_lambda_function" "lambda" {
   runtime          = "python3.8"
   handler          = "handler.lambda_handler"
   timeout          = 10
-  layers           = [aws_lambda_layer_version.xray.arn]
   depends_on = [
     aws_cloudwatch_log_group.lambda
   ]
