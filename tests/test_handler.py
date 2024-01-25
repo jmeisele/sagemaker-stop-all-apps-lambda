@@ -18,9 +18,22 @@ def test_lambda_handler(monkeypatch) -> None:
             "NextToken": "string",
         }
 
-    monkeypatch.setattr(
-        src.handler.client, "list_user_profiles", mock_list_user_profiles
-    )
+    def mock_list_apps(*args: str, **kwargs: str) -> Dict[str, Any]:
+        return {
+            "Apps": [
+                {
+                    "DomainId": 'test-domain"',
+                    "UserProfileName": "test-user",
+                    "AppType": "JupyterServer",
+                    "AppName": "my-app",
+                    "Status": "InService",
+                },
+            ],
+            "NextToken": "string",
+        }
+
+    monkeypatch.setattr(src.handler.client, "list_user_profiles", mock_list_user_profiles)
+    monkeypatch.setattr(src.handler.client, "list_apps", mock_list_apps)
 
     event = {"domain_id": "domain"}
     context = {}
