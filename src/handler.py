@@ -19,6 +19,9 @@ def lambda_handler(event: Dict, context: Dict) -> Dict[str, Any]:
     list_apps_response = client.list_apps(DomainIdEquals=event["domain_id"])
     print(f"list_apps_response: {list_apps_response}")
 
+    for app in list_apps_response["Apps"]:
+        print(f"app: {app}")
+
     return {
         "statusCode": 200,
         "headers": {"Content-Type": "application/json"},
