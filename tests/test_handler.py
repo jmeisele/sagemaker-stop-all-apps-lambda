@@ -6,18 +6,6 @@ from src.handler import lambda_handler
 
 
 def test_lambda_handler(monkeypatch) -> None:
-    def mock_list_user_profiles(*args: str, **kwargs: str) -> Dict[str, Any]:
-        return {
-            "UserProfiles": [
-                {
-                    "DomainId": "test-domain",
-                    "UserProfileName": "test-user",
-                    "Status": "InService",
-                },
-            ],
-            "NextToken": "string",
-        }
-
     def mock_list_apps(*args: str, **kwargs: str) -> Dict[str, Any]:
         return {
             "Apps": [
@@ -27,13 +15,17 @@ def test_lambda_handler(monkeypatch) -> None:
                     "AppType": "JupyterServer",
                     "AppName": "my-app",
                     "Status": "InService",
+                    "SpaceName": "test-space",
                 },
             ],
             "NextToken": "string",
         }
 
-    monkeypatch.setattr(src.handler.client, "list_user_profiles", mock_list_user_profiles)
+    def mock_delete_app(*args: str, **kwargs: str) -> None:
+        return None
+
     monkeypatch.setattr(src.handler.client, "list_apps", mock_list_apps)
+    monkeypatch.setattr(src.handler.client, "delete_app", mock_delete_app)
 
     event = {"domain_id": "domain"}
     context = {}

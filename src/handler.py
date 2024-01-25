@@ -10,17 +10,15 @@ def lambda_handler(event: Dict, context: Dict) -> Dict[str, Any]:
     print(f"Event: {event}:")
     print(f"Context: {context}:")
 
-    # user_profile_response = client.list_user_profiles(DomainIdEquals=event["domain_id"])
-    # print(f"user_profile_response: {user_profile_response}")
-
-    # user_profiles = [x["UserProfileName"] for x in user_profile_response["UserProfiles"]]
-    # print(f"user_profiles: {user_profiles}")
-
     list_apps_response = client.list_apps(DomainIdEquals=event["domain_id"])
     print(f"list_apps_response: {list_apps_response}")
 
     for app in list_apps_response["Apps"]:
         print(f"app: {app}")
+        if app["Status"] != "Deleted":
+            client.delete_app(
+                DomainId=event["domain_id"], AppType=app["AppType"], AppName=app["AppName"], SpaceName=app["SpaceName"]
+            )
 
     return {
         "statusCode": 200,
