@@ -44,23 +44,9 @@ resource "aws_lambda_function" "lambda" {
   runtime          = "python3.8"
   handler          = "handler.lambda_handler"
   timeout          = 10
-  layers           = [aws_lambda_layer_version.xray.arn]
   depends_on = [
     aws_cloudwatch_log_group.lambda
   ]
-  tracing_config {
-    mode = "Active"
-  }
-}
-
-###############
-#   Layer     #
-###############
-resource "aws_lambda_layer_version" "xray" {
-  filename            = "${path.module}/layer.zip"
-  description         = "aws-xray-sdk module"
-  layer_name          = "aws-xray-sdk"
-  compatible_runtimes = ["python3.8"]
 }
 
 ##########################
@@ -86,24 +72,9 @@ resource "aws_cloudwatch_metric_alarm" "lambda_alarm" {
   threshold           = 1
   alarm_description   = "Lambda Errored Out"
 
-  alarm_actions = [
-    "${aws_sns_topic.alarms.arn}",
-  ]
-
   dimensions = {
     FunctionName = aws_lambda_function.lambda.function_name
   }
 }
 
-##########################
-#       SNS Topic        #
-##########################
-resource "aws_sns_topic" "alarms" {
-  name = "${var.function_name}-test-topic"
-}
 
-resource "aws_sns_topic_subscription" "subscription" {
-  topic_arn = aws_sns_topic.alarms.arn
-  protocol  = "email"
-  endpoint  = "jmeisele@yahoo.com"
-}

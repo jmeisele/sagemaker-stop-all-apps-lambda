@@ -20,5 +20,5 @@ variable "region" {
 variable "function_name" {
   type        = string
   description = "Lambda function name"
-  default     = "lambda"
+  default     = "sagemaker_stop_all_apps"
 }
