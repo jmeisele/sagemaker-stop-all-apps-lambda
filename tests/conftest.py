@@ -1,9 +1,4 @@
-import datetime
 import os
-
-import boto3
-import botocore
-import pytest
 
 os.environ["AWS_ACCESS_KEY_ID"] = "testing"
 os.environ["AWS_SECRET_ACCESS_KEY"] = "testing"
