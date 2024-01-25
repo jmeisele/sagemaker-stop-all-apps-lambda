@@ -9,10 +9,8 @@ client = boto3.client("sagemaker")
 def lambda_handler(event: Dict, context: Dict) -> Dict[str, Any]:
     print(f"Event: {event}:")
     print(f"Context: {context}:")
-    
-    user_response = client.list_user_profiles(
-        DomainIdEquals=event["domain_id"]
-    )
+
+    user_response = client.list_user_profiles(DomainIdEquals=event["domain_id"])
     print(f"user_response: {user_response}")
     return {
         "statusCode": 200,
