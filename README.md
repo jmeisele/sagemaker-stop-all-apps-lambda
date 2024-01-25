@@ -1,4 +1,5 @@
 # Sagemaker Stop All Apps Lambda
+![](./assets/snap.gif)
 
 Lambda to iterate through all sagemaker user profiles and stop all apps. Useful for things like updating LCCs.
 
