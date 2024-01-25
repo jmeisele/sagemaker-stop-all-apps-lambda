@@ -3,8 +3,8 @@ import json
 from src.handler import lambda_handler
 
 
-def test_lambda_handler() -> None:
-    event = {}
+def test_lambda_handler(sagemaker_client) -> None:
+    event = {"domain_id": "domain"}
     context = {}
     result = lambda_handler(event, context)
     expected = {
