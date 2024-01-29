@@ -15,7 +15,7 @@ def lambda_handler(event: Dict, context: Dict) -> Dict[str, Any]:
 
     for app in list_apps_response["Apps"]:
         print(f"app: {app}")
-        if app["Status"] != "Deleted":
+        if app["Status"] != "Deleted" or app["Status"] != "Failed":
             client.delete_app(
                 DomainId=event["domain_id"], AppType=app["AppType"], AppName=app["AppName"], SpaceName=app["SpaceName"]
             )
